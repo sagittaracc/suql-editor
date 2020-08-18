@@ -1,3 +1,3 @@
 # suql-editor
 
-SuQL Editor is a SuQL Lap Client application. 
+SuQL Editor is a SuQL Lap client application. 
