@@ -1,0 +1,49 @@
+import React, { useState } from "react";
+import { Text, View, Picker, TextInput, Button, Alert, StyleSheet } from 'react-native';
+
+export default function App() {
+  const [driver, setDriver] = useState('mysql');
+  const [host, setHost] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [connectionState, setConnectionState] = useState('');
+
+  const connect = function() {
+    setConnectionState('Connecting');
+
+    fetch('https://reactnative.dev/movies.json')
+      .then((response) => response.json())
+      .then((json) => setConnectionState('Connected'))
+      .catch((error) => console.error(error));
+  };
+
+  return (
+    <View>
+
+      <Text>Driver</Text>
+      <Picker
+        selectedValue={driver}
+        onValueChange={(itemValue, itemIndex) => setDriver(itemValue)}
+      >
+        <Picker.Item label="MySQL" value="mysql" />
+        <Picker.Item label="PostgreSQL" value="postgresql" />
+        <Picker.Item label="MSSQL" value="mssql" />
+        <Picker.Item label="Oracle" value="oracle" />
+      </Picker>
+
+      <Text>Host</Text>
+      <TextInput style={{borderWidth: 1}} value={host} onChangeText={text => setHost(text)}/>
+
+      <Text>Username</Text>
+      <TextInput style={{borderWidth: 1}} value={username} onChangeText={text => setUsername(text)}/>
+
+      <Text>Password</Text>
+      <TextInput style={{borderWidth: 1}} value={password} onChangeText={text => setPassword(text)} secureTextEntry={true}/>
+
+      <Button title="Connect" onPress={connect}/>
+
+      <Text>{connectionState}</Text>
+
+    </View>
+  );
+}
